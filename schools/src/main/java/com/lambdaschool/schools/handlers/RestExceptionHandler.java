@@ -38,16 +38,20 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler
         errorDetail.setStatus(HttpStatus.NOT_FOUND.value());
         errorDetail.setTitle("Resource Not Found");
         errorDetail.setDetail(rnfe.getMessage()); // message from ResourceNotFound class
-        errorDetail.setDeveloperMessage(rnfe.getClass().getName());
+        errorDetail.setDeveloperMessage(rnfe.getClass()
+            .getName());
         errorDetail.setErrors(helper.getConstraintViolation(rnfe));
 
-        return new ResponseEntity<>(errorDetail, null, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(errorDetail,
+            null,
+            HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(ResourceFoundException.class)
     public ResponseEntity<?> handleResourceFoundException(ResourceFoundException rfe)
     {
         ErrorDetail errorDetail = new ErrorDetail();
+
         errorDetail.setTimestamp(new Date());
         errorDetail.setStatus(HttpStatus.BAD_REQUEST.value());
         errorDetail.setTitle("Unexpected Resource");
@@ -70,12 +74,17 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler
         WebRequest request)
     {
         ErrorDetail errorDetail = new ErrorDetail();
+
         errorDetail.setTimestamp(new Date());
+        errorDetail.setStatus(status.value());
         errorDetail.setTitle("Rest Internal Exception");
-        errorDetail.setDetail(ex.getMessage());
-        errorDetail.setDeveloperMessage(ex.getClass().getName());
+        errorDetail.setDetail("Found an issue with School: " + ex.getMessage());
+        errorDetail.setDeveloperMessage(ex.getClass()
+            .getName());
         errorDetail.setErrors(helper.getConstraintViolation(ex));
 
-        return new ResponseEntity<>(errorDetail, null, status);
+        return new ResponseEntity<>(errorDetail,
+            null,
+            status);
     }
 }

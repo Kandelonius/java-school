@@ -8,14 +8,6 @@ import org.springframework.web.context.request.WebRequest;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-/*
-private String title; // title of exception
-private int status; // Http method status as a number ex 404
-private String detail; // details to the client
-private Date timestamp; // time of exception
-private String developerMessage; // message to developer if needed
-private List<ValidationError> errors = new ArrayList<>(); // list of errors
-*/
 
 @Component
 public class CustomErrorDetails extends DefaultErrorAttributes
@@ -33,6 +25,15 @@ public class CustomErrorDetails extends DefaultErrorAttributes
             includeStackTrace);
 
         Map<String, Object> errorDetails = new LinkedHashMap<>(); // these will match the fields from ErrorDetail
+
+        /*
+        private String title; // title of exception
+        private int status; // Http method status as a number ex 404
+        private String detail; // details to the client
+        private Date timestamp; // time of exception
+        private String developerMessage; // message to developer if needed
+        private List<ValidationError> errors = new ArrayList<>(); // list of errors
+        */
 
         errorDetails.put("title", errorAttributes.get("error"));
         errorDetails.put("status", errorAttributes.get("status"));
